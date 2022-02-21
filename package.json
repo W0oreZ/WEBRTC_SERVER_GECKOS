@@ -1,0 +1,15 @@
+{
+  "name": "webrtc_server_geckos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "author": "EL-KHADIRI Abderrazak",
+  "license": "MIT",
+  "dependencies": {
+    "@geckos.io/server": "^2.1.8",
+    "express": "^4.17.3"
+  }
+}
