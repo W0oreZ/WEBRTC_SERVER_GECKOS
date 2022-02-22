@@ -1,10 +1,16 @@
 import geckos from "@geckos.io/server";
+import http from 'http';
 import udp from "dgram";
 import express from "express";
 
 const app = express();
+const server = http.createServer(app)
 const UDPserver = udp.createSocket("udp4");
 const io = geckos({
+  portRange: {
+    min: 20000,
+    max: 20100
+  },
   iceServers: [
     { urls: "stun:stun01.sipphone.com" },
     { urls: "stun:stun.ekiga.net" },
@@ -32,6 +38,7 @@ const io = geckos({
     },
   ],
 });
+io.addServer(server)
 
 //============================ UDP SERVER ========================
 
@@ -92,11 +99,15 @@ app.use(express.static('public'));
 //============================ EXPRESS SERVER ====================
 
 
-app.listen(3000, () => {
-    console.log('HTTP Server is running at http://localhost:3000');
-});
+// app.listen(3000,"0.0.0.0", null, () => {
+//     console.log('HTTP Server is running at http://localhost:3000');
+// });
 
-io.listen(3030);
+server.listen(9208, "0.0.0.0", null, () => {
+  console.log('HTTP/Geckos Server is running at :9208');
+})
+
+//io.listen(3030);
 
 UDPserver.bind(2222);
 

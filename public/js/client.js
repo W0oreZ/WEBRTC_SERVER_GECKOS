@@ -1,8 +1,6 @@
 const streamElement = document.getElementById("peer-stream");
 
-const channel = geckos({
-    port: 3030
-})
+const channel = geckos()
 
 channel.onConnect(function (error) {
     if (error) {
@@ -26,4 +24,6 @@ channel.onConnect(function (error) {
     channel.on('chat message', function (data) {
         console.log("Received : " + data)
     })
+
+    channel.on('error', err=>console.log(err.message))
 })
